@@ -1,0 +1,25 @@
+This is memo
+
+<meta> : provide information about whole document
+The tags like <base>, <link>, <script>, <style>, <title> etc can also provide meta data, but
+<meta> provides meta-data they cannot express
+<meta> should be inside of header tag
+
+ex:
+//define keyword, description, author
+<meta name="keyword" content="HTML, meta, tag, element, reference">
+<meta name="description" content="HTML meta tag page">
+<meta name="author" content="TCPSchool">
+
+//http-equiv = "content-type : character encoding, default-type : priority of style sheet, refresh : refresh gap"
+    http header
+<meta http-equiv="refresh" content="5;url=http://www.tcpschool.com">
+//viewport : recognize device size
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script></script> : module
+vw,vh : screen size(%)
+
+--variable name : css variable
+
+hsl tutorial
