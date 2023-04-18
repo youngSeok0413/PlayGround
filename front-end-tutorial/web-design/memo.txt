@@ -1,0 +1,22 @@
+inside <- content - padding - border - margin -> outside
+top right bottom left
+display : 요로를 어떻게 보여줄 지 결정
+    none : not seen - don't render
+    block : block box - div, p, h, li looks like paragraph, width, height ok
+    inline : inline box - block과 달리 width, height 지정 불가, 글자, 문자에 효과를 주기위해 존재하는 단위
+    inline-block : block과 inline의 중간 형태 - 줄 바꿈이 되지 않지만 크기를 지정할 수 있음
+text-align : 문자 정렬(content)
+span : no function, but display is inline style, no 줄바꿈
+float : 이미지를 어떻게 텍스트와 같이 배치할 것인가?
+    inherit: 부모 요소에서 상속
+    left: 왼쪽에 부유하는 블록 박스를 생성. 페이지 내용은 박스 오른쪽에 위치하며 위에서 아래로 흐름.
+    right: 오른쪽에 부유하는 블록 박스를 생성. 페이지 내용은 박스 왼쪽에 위치하며 위에서 아래로 흐름. 이후 요소에 clear 속성이 있으면 페이지 흐름이 달라짐. none 이 아니라면 display 속성은 무시된다.
+    none - 요소를 부유시키지 않음
+
+    left와 right를 통해 부유속성을 지정시 display는 무시됩니다. (none은 제외)
+
+    @media : CSS에서 어떤 스타일을 선택적으로 적용하고 싶을 때 사용(if랑 비슷)
+
+    @media (조건) {
+  스타일
+}

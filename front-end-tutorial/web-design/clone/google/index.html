@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Google</title>
+        <link rel="stylesheet" href="style.css">
+    </head> 
+    <body>
+        <form action="google" method="post">
+
+            <div class="logocontainer">
+                <img src="google.jpg" alt="google" class="logo"><br>
+                <b>Sign in with your Google Account</b>
+            </div>
+
+            <div class="maincontainer">
+                
+                <div class="imgcontainer">
+                    <img src="avatar.jpg" alt="avatar" class="avatar">
+                </div>
+
+                <div class="mailandid">
+                    <label for="email"></label>
+                    <input type="text" placeholder="Email" name="email" required>
+                    <br>
+                    <label for="psw"></label>
+                    <input type="password" placeholder="Password" name="psw" required>
+                </div>
+
+                <button type="submit">Sign in</button>
+
+                <div class="checkercontainer" style="background-color: #f1f1f1">
+                    <span class="stayincontainer">
+                        <input type="checkbox" name="sgninstay">Stay signed in
+                    </span>
+                    <a href="#">Needs help?</a>
+                </div>
+            </div>
+        </form>
+    </body> 
+</html>

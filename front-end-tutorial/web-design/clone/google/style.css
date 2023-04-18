@@ -1,0 +1,75 @@
+form{
+    border: 3px solid #f7f7f7;
+    background-color: #f7f7f7;
+    text-align: center;
+    padding: 10px 15px 10px 15px;
+}
+
+.logocontainer{
+    color : #878787;
+    size: 15px;
+    margin: 10px 0 10px 0;
+}
+
+.imgcontainer{
+    margin: 10px 0 10px 0;
+}
+
+img.logo{
+    width: 120px;
+    height: 50px;
+}
+
+img.avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.maincontainer{
+    width: 360px;
+    height: 360px;
+    border-top: 0px solid #EAEAEA;
+    border-right: 2px solid #EAEAEA;
+    border-left: 2px solid #EAEAEA;
+    box-shadow: 0px 2px 3px #C1C1C1;
+    background-color: #F4F4F4;
+
+    padding: 30px 40px 40px 40px;
+}
+
+.maincontainer.mailandid{
+    margin: 10px 0 5px 0;
+}
+
+.maincontainer.checkercontainer{
+    font-size: 8px;
+}
+
+input[type="text"], input[type="password"]{
+    border: 1px solid #88B7FC;
+    padding: 12px, 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    display: inline-block;
+    width: 273px;
+    height: 34px;
+    box-sizing: border-box;
+}
+
+
+button{
+    border: 2px solid #5193F2;
+    background-color: #5193F2;
+    color: #F6FBFE;
+    width: 273px;
+    height: 34px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    margin: 5px 0 5px 0;
+}
+
+button:hover{
+    opacity: 0.8;
+}
