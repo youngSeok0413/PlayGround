@@ -1,39 +1,31 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Google</title>
+        <title>Google Login</title>
         <link rel="stylesheet" href="style.css">
-    </head> 
+    </head>
     <body>
-        <form action="google" method="post">
-
-            <div class="logocontainer">
-                <img src="google.jpg" alt="google" class="logo"><br>
-                <b>Sign in with your Google Account</b>
+        <form action="#" method="post">
+            <div class="logocon">
+                <img src="google.jpg" class="icon"><br>
+                Sign in with your Google Account
             </div>
+            <div class="maincon">
+                <img src="avatar.jpg" class="avatar">
 
-            <div class="maincontainer">
-                
-                <div class="imgcontainer">
-                    <img src="avatar.jpg" alt="avatar" class="avatar">
+                <div class="idpwdcon">
+                    <input type="text" required placeholder="Email">
+                    <input type="password" required placeholder="Password">
                 </div>
 
-                <div class="mailandid">
-                    <label for="email"></label>
-                    <input type="text" placeholder="Email" name="email" required>
-                    <br>
-                    <label for="psw"></label>
-                    <input type="password" placeholder="Password" name="psw" required>
-                </div>
+                 <input type="submit" value="Sign In">
 
-                <button type="submit">Sign in</button>
-
-                <div class="checkercontainer" style="background-color: #f1f1f1">
-                    <span class="stayincontainer">
-                        <input type="checkbox" name="sgninstay">Stay signed in
-                    </span>
-                    <a href="#">Needs help?</a>
-                </div>
+                 <div class="nav">
+                    <span class="checkboxcon"><input type="checkbox">Stay signed in</span>
+                    <span>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</span>
+                    <span class="refcon"><a href="#">Need help?</a></span>
+                 </div>
             </div>
         </form>
-    </body> 
+    </body>
 </html>
