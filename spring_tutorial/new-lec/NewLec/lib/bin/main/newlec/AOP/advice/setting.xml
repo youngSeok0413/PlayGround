@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- <context:component-scan base-package="newlec.AOP"/> -->
+	
+	<bean id="target" class="newlec.AOP.entity.NewlecExam" p:kor="1" p:math="2" p:eng="3" p:com="4"/>
+	<bean id="logAroundAdvice" class="newlec.AOP.advice.LogAroundAdvice"/>
+	<bean id="logBeforeAdvice" class="newlec.AOP.advice.LogBeforeAdvice"/>
+	<bean id="logAfterReturning" class="newlec.AOP.advice.LogAfterReturning"/>
+	<bean id="logAfterThrowing" class="newlec.AOP.advice.LogAfterThrowing"/>
+	
+	<bean id="classicBeforeAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="logBeforeAdvice"/>
+		<property name="pointcut" ref="classicPointCut"/>
+	</bean>
+	
+	<bean id="classicPointCut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+		<property name="mappedName" value="total"></property>
+	</bean>
+	
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="target"/> <!-- object -->
+		<property name="interceptorNames">
+			<list>
+				<value>classicBeforeAdvisor</value>
+				<value>logAroundAdvice</value>
+			</list>
+		</property>
+	</bean>
+</beans>

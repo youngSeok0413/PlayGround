@@ -77,14 +77,62 @@ ApplicationContext context =
  @Component : 어노테이션을 읽을 일이 없어서 미리 설정해주어야 함(객체 생성)
  @Value() : 기본값을 넣어줄 수 있음
  
+ AOP 벙법론
+ 	Aspect Oriented Programming
+ 	기존 : 업무 분석 -> 구현 = 주 업무 로직(사용자를 위한 것) + 보조 로직(개발자 내지 운영자를 위한 것)
+ 	
+ 	관점들에 대해서 분류하고 어떻게 프로그래밍을 할 것인가?
+ 	관심사 = 객체
+ 	업무 = 메서드
+ 	
+ 필터 같은 역할을 어떻게 구현?
+ 
+이걸로-cross-cutting concern <-> core concern
+
+proxy는 일종의 가짜 objec(다른 메서드를 이식하기 위한)
+
+Spring proxy : 
+Before	MethodBeforeAdvice 인터페이스 사용
+AfterRunning	AfterReturningAdvice
+AfterThrowing + Advice() ThrowsAdvice
+Around	MethodInterceptor
+ 	
+spring proxy 
+
+xml setting
+	<bean id="target" class="newlec.AOP.entity.NewlecExam" p:kor="1" p:math="2" p:eng="3" p:com="4"/>
+	<bean id="logAroundAdvice" class="newlec.AOP.advice.LogAroundAdvice"/>
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="target"/> <!-- object -->
+		<property name="interceptorNames">
+			<list>
+				<value>logAroundAdvice</value>
+			</list>
+		</property>
+	</bean>
  
  
+ public class LogAroundAdvice implements MethodInterceptor{
+
+	@Override
+	public Object invoke(MethodInvocation invocation) throws Throwable {
+		//cross-cutting here
+		
+		Object result = invocation.proceed();
+		
+		//cross-cutting here 
+		
+		return result;
+	}
+
+}
+
+pointcutin point, weaving : proxy의 구조가 뜨개질과 유사해 보여
+join point : target을 지정하면 이게 다 weaving이 이루어진다. 그러면 특정 메서드만 위빙 할려면 어떻게 -> point cut
  
  
- 
- 
- 
- 
- 
+ advice 별로 엮어야 함
+ advice 하나당 advisor 하나
+ pointcut의 기능을 내제하고 있는 advisor 사용 : NameMathchMethodPointcutAdvisor
  
  
