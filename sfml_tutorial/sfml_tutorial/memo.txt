@@ -1,0 +1,21 @@
+Handling Time
+
+sfml provide sf::Time : easy to convert milliseconds, microseconds, seconds
+sf::Clock is clock
+getElapsedTime() -> retrieve the time elapsed since the clock started, 
+restart() -> restart the clock, also return the elapsed time between slight gap between getElapsedTime() and restart()
+
+
+sfml thread
+thread is basically a squence of instructions that run in parallel to other threads.(processes of process)
+app has at least one thread, main(). if you use the main thread only, it is single thread, your app has more than one thread, multi-thread
+actually newer version than c++11 provide <thread> header, use it, instead of using sf::Thread
+process contains threads. As you know each process has flow, but actually one process can have multiple flows at a time
+difference between thread and process is that each processes are independence which means they can not share memory each other, but threads can share memory with other threads.
+Today cpu has multiple cores, it is able to process multiple threads at the same time.
+problem is that we can not consider priority between threads without race condition.(setting race condition needed)
+
+
+user data stream
+resources from filed : loadFromFile
+load files from unusual places : InputStream(sfml provide it!!).loadFromStream()
