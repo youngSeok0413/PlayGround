@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        
+        <!-- 접두사를 이용하여 해당 스크마를 사용하겠다라고 정의해준다. -->
+   	<bean id="/index" class="webprj.controller.IndexController"> <!-- 무조건 슬래시 빼먹지마 -->
+   	</bean>
+   	
+   	<bean id="/notice/list" class="webprj.controller.notice.ListController"> <!-- 무조건 슬래시 빼먹지마 -->
+   	</bean>
+   	
+   	<bean id="/notice/detail" class="webprj.controller.notice.DetailController"> <!-- 무조건 슬래시 빼먹지마 -->
+   	</bean>
+   	
+   	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+   		<property name="prefix" value="/WEB-INF/view/"/>
+   		<property name="suffix" value=".jsp"/> <!-- 반복적으로 파일 위치인 부분을 해결해주는 역할-->
+   	</bean>
+   	
+   	
+	<mvc:resources location="/static/" mapping="/**"></mvc:resources>  <!-- static resource에 대한 매핑 -->
+</beans>
