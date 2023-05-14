@@ -1,0 +1,17 @@
+﻿  main.cpp
+D:\GitWorkSpace\PlayGround\sorting_simulation\sorting_simulation\main.cpp(14,28): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\GitWorkSpace\PlayGround\sorting_simulation\sorting_simulation\main.cpp(15,34): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\GitWorkSpace\PlayGround\sorting_simulation\sorting_simulation\main.cpp(15,28): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  sorting_simulation.vcxproj -> D:\GitWorkSpace\PlayGround\sorting_simulation\Debug\sorting_simulation.exe
