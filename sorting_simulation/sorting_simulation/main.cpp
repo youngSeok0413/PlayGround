@@ -1,15 +1,10 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <Windows.h>
 #include <deque>
 
 #define ARR_SIZE 600
-
-/*
-* need to do
-* add algorithms(bubble, quick, merge, insertion, selection)
-* add sound file and play it while drawing
-*/
 
 //draw
 void draw(int* arr, sf::RenderWindow& window) {
@@ -49,12 +44,17 @@ void swap(int* arr, int index_1, int index_2) {
 }
 
 //shuffle
-void shuffle(int* arr) {
-	for (int i = 0; i < ARR_SIZE * 5; i++) {
+void shuffle(int* arr, std::deque<int*>& frames) {
+
+	std::cout << "Now Shuffling!! : ";
+
+	for (int i = 0; i < ARR_SIZE * 3; i++) {
 		int index_1 = rand() % 600;
 		int index_2 = rand() % 600;
 
 		swap(arr, index_1, index_2);
+
+		snap(arr, frames);
 	}
 }
 
@@ -64,9 +64,130 @@ void bubble_sort(int* arr, std::deque<int*>& frames) {
 		for (int j = 0; j < i; j++) {
 			if (arr[j] > arr[j+1]) {
 				swap(arr, j, j+1);
-				snap(arr, frames);
 			}
+			snap(arr, frames);
 		}
+	}
+}
+
+//selection sort
+void selection_sort(int* arr, std::deque<int*>& frames) {
+	for (int i = 0; i < ARR_SIZE - 1; i++) {
+		int min_index = i;
+		for (int j = i + 1; j < ARR_SIZE; j++) {
+			if (arr[min_index] > arr[j]) {
+				min_index = j;
+			}
+			snap(arr, frames);
+		}
+		swap(arr, i, min_index);
+	}
+}
+
+//insertion sort
+void insertion_sort(int* arr, std::deque<int*>& frames) {
+	int i, j, key;
+	for (i = 1; i < ARR_SIZE; i++) {
+		int key = arr[i];
+		for (j = i - 1; j >= 0 && arr[j] > key; j--) {
+			arr[j + 1] = arr[j];
+			snap(arr, frames);
+		}
+		arr[j + 1] = key;
+	}
+}
+//merge sort
+void merge(int* arr, int left, int mid, int right, std::deque<int*>& frames) {
+	int* buffer = (int*)malloc(sizeof(int)*ARR_SIZE);
+	for (int i = 0; i < ARR_SIZE; i++)
+		buffer[i] = arr[i];
+
+	int i, j, k;
+	i = left;
+	j = mid + 1;
+	k = left;
+
+	while(i <= mid && j <= right) {
+		if (arr[i] < arr[j])
+			buffer[k++] = arr[i++];
+		else
+			buffer[k++] = arr[j++];
+
+		snap(buffer, frames);
+	}
+
+	if (i > mid) {
+		for (; j <= right; j++) {
+			buffer[k++] = arr[j];
+		}
+	}
+	else {
+		for (; i <= mid; i++) {
+			buffer[k++] = arr[i];
+		}
+	}
+
+	snap(buffer, frames);
+
+	for (int i = left; i <= right; i++) {
+		arr[i] = buffer[i];
+	}
+
+	free(buffer);
+}
+
+void merge_sort(int* arr, int left, int right, std::deque<int*>& frames) {
+	if(left < right) {
+		int piviot = (right + left) / 2;
+		merge_sort(arr, left, piviot, frames);
+		merge_sort(arr, piviot+1, right, frames);
+		merge(arr, left, piviot, right, frames);
+	}
+}
+
+//quick sort
+int partition(int* arr, int left, int right, std::deque<int*>& frames) {
+	int low, high, pivot;
+
+	low = left;
+	high = right + 1;
+	pivot = arr[left];
+
+	do {
+		/* list[low]가 피벗보다 작으면 계속 low를 증가 */
+		do {
+			low++; // low는 left+1 에서 시작
+		} while (low <= right && arr[low] < pivot);
+
+		/* list[high]가 피벗보다 크면 계속 high를 감소 */
+		do {
+			high--; //high는 right 에서 시작
+		} while (high >= left && arr[high] > pivot);
+
+		// 만약 low와 high가 교차하지 않았으면 list[low]를 list[high] 교환
+		if (low < high) {
+			swap(arr, low, high);
+		}
+
+		snap(arr, frames);
+	} while (low < high);
+
+	// low와 high가 교차했으면 반복문을 빠져나와 list[left]와 list[high]를 교환
+	swap(arr, low, high);
+
+	snap(arr, frames);
+
+	return high;
+}
+
+void quick_sort(int* arr, int left, int right, std::deque<int*>& frames) {
+	if (left < right) {
+		int q = partition(arr, left, right, frames);
+
+		quick_sort(arr, left, q-1, frames);
+		quick_sort(arr, q+1, right, frames);
+
+		snap(arr, frames);
 	}
 }
 
@@ -78,11 +199,13 @@ bool isSorted(int* arr) {
 		}
 	}
 
-	return true;
+	return true; 
 }
 
 int main() {
 	//variables
+	int frames_cnt = 0;
+
 	int arr[ARR_SIZE] = { 0, };
 	for (int i = 0; i < ARR_SIZE; i++) {
 		arr[i] = i + 1;
@@ -90,8 +213,11 @@ int main() {
 
 	//here is where frames saved
 	std::deque<int*> frames;
+
 	char action_type = 0;
+
 	sf::RenderWindow window(sf::VideoMode(600, 600), "Sorting_Simulation", sf::Style::Close|sf::Style::Titlebar);
+
 	bool onDrawing = false;
 
 	std::cout << "Sorting Simulation, Here is instruction!!\n"
@@ -135,28 +261,38 @@ int main() {
 		window.clear(sf::Color::Black);
 		if (action_type != 0 && action_type != 'r') {
 			if (!onDrawing) {
+				//shuffle
+				shuffle(arr, frames);
+
 				//sort here
-				shuffle(arr);
 				if (action_type == 'b') {
 					std::cout << "bubble sorting\n";
-					shuffle(arr);
 					bubble_sort(arr, frames);
+					frames_cnt = frames.size() - 1800;
 					onDrawing = true;
 				}
 				else if (action_type == 's') {
-					shuffle(arr);
+					std::cout << "selection sorting\n";
+					selection_sort(arr, frames);
+					frames_cnt = frames.size() - 1800;
 					onDrawing = true;
 				}
 				else if (action_type == 'i') {
-					shuffle(arr);
+					std::cout << "insertion sorting\n";
+					insertion_sort(arr, frames);
+					frames_cnt = frames.size() - 1800;
 					onDrawing = true;
 				}
 				else if (action_type == 'm') {
-					shuffle(arr);
+					std::cout << "merge sorting\n";
+					merge_sort(arr, 0, ARR_SIZE-1, frames);
+					frames_cnt = frames.size() - 1800;
 					onDrawing = true;
 				}
 				else if (action_type == 'q') {
-					shuffle(arr);
+					std::cout << "quick sorting\n";
+					quick_sort(arr, 0, ARR_SIZE-1, frames);
+					frames_cnt = frames.size() - 1800;
 					onDrawing = true;
 				}
 			}
@@ -168,6 +304,8 @@ int main() {
 				}
 				else {
 					action_type = 'r';
+					std::cout << "Frame's count(the more, the slower) : " << frames_cnt << std::endl;
+					frames_cnt = 0;
 				}
 			}
 		}
